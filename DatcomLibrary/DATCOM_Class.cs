@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace DATCOM
 {
-    public class DATCOM_Class
+    public class DATCOM_Class 
     {
+        public DATCOM_Class() {
+
+        }
     }
 }

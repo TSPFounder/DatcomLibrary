@@ -99,6 +99,16 @@ public sealed class DATCOM_Model
         _ => null
     };
 
+    public void AddModelDataToFile(DATCOM_File file)
+    {
+        if (file is null)
+        {
+            throw new ArgumentNullException(nameof(file));
+        }
+        ModelFile = file;
+        file.DATCOM_Models.Add(this);
+    }
+
     public enum BasicConfigurationEnum
     {
         BodyAlone = 1,
