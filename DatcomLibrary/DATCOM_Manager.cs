@@ -95,12 +95,12 @@ public sealed class DATCOM_Manager
 
         try
         {
-            foreach (var _ in FileCollection)
+            foreach (var currentFile in FileCollection)
             {
-                var sourceFile = Path.Combine(CurrentFile.InputPath, "for005.dat");
+                var sourceFile = Path.Combine(currentFile.InputPath, currentFile.FileName);
                 if (File.Exists(sourceFile))
                 {
-                    var backupPath = Path.Combine(CurrentFile.InputPath, $"for005.dat.old{Guid.NewGuid():N}");
+                    var backupPath = Path.Combine(CurrentFile.InputPath, currentFile.FileName, ".old");
                     File.Move(sourceFile, backupPath, overwrite: true);
                 }
 
@@ -114,9 +114,9 @@ public sealed class DATCOM_Manager
             }
 
             var workbook = TheExcelApp.Workbooks.Open(workbookPath);
-#pragma warning disable CA1416
+
             var outputWorksheet = (Worksheet)TheExcelApp.ActiveSheet;
-#pragma warning restore CA1416
+
             _ = outputWorksheet;
             workbook.Close(false);
 
