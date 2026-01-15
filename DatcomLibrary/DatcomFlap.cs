@@ -8,13 +8,15 @@ namespace DatcomLibrary
 {
     internal class DatcomFlap
     {
-        public DatcomFlap()
-        {
+        public DatcomFlap() { 
+        
+            myFlap = new Flap();
+            myFlap.ControlType = FlightControl.ControlTypeEnum.Flap;  
         }
 
         public Boolean IsSymmetric { get; set; }
         public DATCOM_ASYFLP assymetricFlap { get; set; }
-        public DATCOM_ASYFLP symmetricFlap { get; set; }
+        public DATCOM_SYMFLP symmetricFlap { get; set; }
         public Flap myFlap { get; set; }
 
         public void AddAssymetricFlap(DATCOM_ASYFLP flap)
@@ -23,7 +25,7 @@ namespace DatcomLibrary
             IsSymmetric = false;
         }
 
-        public void AddSymmetricFlap(DATCOM_ASYFLP flap)
+        public void AddSymmetricFlap(DATCOM_SYMFLP flap)
         {
             symmetricFlap = flap;
             IsSymmetric = true;

@@ -17,7 +17,7 @@ public sealed class DATCOM_File
 
     public double CurrentDeflection { get; private set; }
 
-    public string InputPath { get; private set; } = string.Empty;
+    public string InputPath { get; set; } = string.Empty;
 
     public string CurrentLine { get; private set; } = string.Empty;
 
@@ -36,7 +36,7 @@ public sealed class DATCOM_File
         CurrentDeflection = deflection;
     }
 
-    public void ExecuteDATCOM(string executablePath = "Datcom.exe")
+    public void ExecuteDATCOM(string executablePath )
     {
         var workingDirectory = string.IsNullOrWhiteSpace(InputPath) ? Environment.CurrentDirectory : InputPath;
         var startInfo = new ProcessStartInfo
@@ -89,7 +89,7 @@ public sealed class DATCOM_File
             return;
         }
 
-        if (currentLine.Contains("NEXTCASE", StringComparison.OrdinalIgnoreCase))
+        if (currentLine.Contains("NEXT CASE", StringComparison.OrdinalIgnoreCase))
         {
             FirstCase = false;
             return;
