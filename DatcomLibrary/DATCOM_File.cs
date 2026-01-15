@@ -51,24 +51,24 @@ public sealed class DATCOM_File
         process?.WaitForExit();
     }
 
-    public void ReadInputDeck(string inputDirectory)
+    public void ReadInputDeck(string inputFullPath)
     {
-        if (string.IsNullOrWhiteSpace(inputDirectory))
+        if (string.IsNullOrWhiteSpace(inputFullPath))
         {
-            throw new ArgumentException("A valid input directory is required.", nameof(inputDirectory));
+            throw new ArgumentException("A valid input directory is required.", nameof(inputFullPath));
         }
 
-        var deckPath = Path.Combine(inputDirectory, "for005.dat");
-        if (!File.Exists(deckPath))
+        
+        if (!File.Exists(inputFullPath))
         {
-            throw new FileNotFoundException("Unable to locate the input deck.", deckPath);
+            throw new FileNotFoundException("Unable to locate the input deck.", inputFullPath);
         }
 
-        InputPath = inputDirectory;
+        //InputPath = inputDirectory;
         FirstCase = true;
         NamelistEnd = false;
 
-        using var reader = new StreamReader(deckPath);
+        using var reader = new StreamReader(inputFullPath);
         while (!reader.EndOfStream)
         {
             var line = reader.ReadLine();
