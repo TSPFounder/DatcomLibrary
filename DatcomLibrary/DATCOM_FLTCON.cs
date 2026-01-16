@@ -18,41 +18,41 @@ namespace DATCOM
         //  Namelist Data
         //
         //  Mach Number 
-        private CAD_Parameter _NumMachNumbers = CreateIntegerParameter("NMACH");  //  - NMACH
+        private CAD_Parameter _NumMachNumbers = CAD_Parameter.CreateIntegerParameter("NMACH");  //  - NMACH
         private List<CAD_Parameter> _MachNumbers = new();  //  - MACH
         //
         //  Freestream Conditions
-        private CAD_Parameter _FreestreamVelocity = CreateDoubleParameter("VEL");  //  - VEL
-        private CAD_Parameter _FreestreamStaticPressure = CreateDoubleParameter("PS");  //  - PS
-        private CAD_Parameter _FreestreamStaticTemperature = CreateDoubleParameter("TS");  //  - TS
+        private CAD_Parameter _FreestreamVelocity = CAD_Parameter.CreateDoubleParameter("VEL");  //  - VEL
+        private CAD_Parameter _FreestreamStaticPressure = CAD_Parameter.CreateDoubleParameter("PS");  //  - PS
+        private CAD_Parameter _FreestreamStaticTemperature = CAD_Parameter.CreateDoubleParameter("TS");  //  - TS
         //
         //  Angle of Attack
-        private CAD_Parameter _NumAnglesOfAttack = CreateIntegerParameter("NALPHA");  //  - NALPHA
+        private CAD_Parameter _NumAnglesOfAttack = CAD_Parameter.CreateIntegerParameter("NALPHA");  //  - NALPHA
         private List<CAD_Parameter> _AnglesOfAttack = new();  //  - ALPHA
         //
         //  Reynolds Number per Unit Length
-        private CAD_Parameter _ReynoldsNumberPerLength = CreateDoubleParameter("RE");  //  - RE
+        private CAD_Parameter _ReynoldsNumberPerLength = CAD_Parameter.CreateDoubleParameter("RE");  //  - RE
         //
         //  Altitudes
-        private CAD_Parameter _NumAltitudes = CreateIntegerParameter("NALT");  //  - NALT
+        private CAD_Parameter _NumAltitudes = CAD_Parameter.CreateIntegerParameter("NALT");  //  - NALT
         private List<CAD_Parameter> _Altitudes = new();  //  - ALT
         //
         //  Hypersonic
-        private CAD_Parameter _Hypersonic = CreateBooleanParameter("BHYPE", false);  //  - BHYPE
+        private CAD_Parameter _Hypersonic = CAD_Parameter.CreateBooleanParameter("BHYPE", false);  //  - BHYPE
         //
         //  Transonic Conditions
-        private CAD_Parameter _SubsonicUpperLimit = CreateDoubleParameter("SUBLIM");  //  - SUBLIM
-        private CAD_Parameter _SupersonicLowerLimit = CreateDoubleParameter("SUPLIM");  //  - SUPLIM
-        private CAD_Parameter _TransitionDragFlag = CreateBooleanParameter("BTRANS", false);  //  - BTRANS
+        private CAD_Parameter _SubsonicUpperLimit = CAD_Parameter.CreateDoubleParameter("SUBLIM");  //  - SUBLIM
+        private CAD_Parameter _SupersonicLowerLimit = CAD_Parameter.CreateDoubleParameter("SUPLIM");  //  - SUPLIM
+        private CAD_Parameter _TransitionDragFlag = CAD_Parameter.CreateBooleanParameter("BTRANS", false);  //  - BTRANS
         //
         //  Weight
-        private CAD_Parameter _Weight = CreateDoubleParameter("WT");  //  - WT
+        private CAD_Parameter _Weight = CAD_Parameter.CreateDoubleParameter("WT");  //  - WT
         //
         //  Flight Path Angle
-        private CAD_Parameter _FlightPathAngle = CreateDoubleParameter("GAMMA");  //  - GAMMA
+        private CAD_Parameter _FlightPathAngle = CAD_Parameter.CreateDoubleParameter("GAMMA");  //  - GAMMA
         //
         //  Looping
-        private CAD_Parameter _Loop = CreateIntegerParameter("LOOP");  //  - LOOP
+        private CAD_Parameter _Loop = CAD_Parameter.CreateIntegerParameter("LOOP");  //  - LOOP
 
         //  *****************************************************************************************
 
@@ -237,25 +237,7 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateIntegerParameter(string name, int initialValue = 0)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Integer);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateBooleanParameter(string name, bool initialValue)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Other);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
+        
     }
 }

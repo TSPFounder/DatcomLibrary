@@ -20,32 +20,32 @@ namespace DATCOM
         //  Vertical Panel
         //
         //  Vertical Panel Span Above Lifting Surface
-        private CAD_Parameter _VerticalPanelSpanAboveLiftingSurface = CreateDoubleParameter("BVP");  // - BVP
+        private CAD_Parameter _VerticalPanelSpanAboveLiftingSurface = CAD_Parameter.CreateDoubleParameter("BVP");  // - BVP
         //
         //  Vertical Panel Span
-        private CAD_Parameter _VerticalPanelSpan = CreateDoubleParameter("BV");  // - BV
+        private CAD_Parameter _VerticalPanelSpan = CAD_Parameter.CreateDoubleParameter("BV");  // - BV
         //
         //  Distance Between Vertical Panels
-        private CAD_Parameter _DistanceBetweenVerticalPanels = CreateDoubleParameter("BH");  // - BH
+        private CAD_Parameter _DistanceBetweenVerticalPanels = CAD_Parameter.CreateDoubleParameter("BH");  // - BH
         //
         //  Vertical Panel Plan Form Area
-        private CAD_Parameter _VerticalPanelPlanFormArea = CreateDoubleParameter("SV");  // - SV
+        private CAD_Parameter _VerticalPanelPlanFormArea = CAD_Parameter.CreateDoubleParameter("SV");  // - SV
         //
         //  Total Trailing Edge Angle of Vertical Panel Airfoil Section
-        private CAD_Parameter _VerticalPanelAirfoilSection_TE_Angle = CreateDoubleParameter("VPHITE");  // - VPHITE
+        private CAD_Parameter _VerticalPanelAirfoilSection_TE_Angle = CAD_Parameter.CreateDoubleParameter("VPHITE");  // - VPHITE
         //
         //  Chord Locations Relative to CG
         //
         //  Longitudinal Distance Between CG and Panel Quarter Chord Point
-        private CAD_Parameter _CG_LongitudinalDistanceToQuarterChordPoint = CreateDoubleParameter("VLP");  // - VLP
+        private CAD_Parameter _CG_LongitudinalDistanceToQuarterChordPoint = CAD_Parameter.CreateDoubleParameter("VLP");  // - VLP
         //
         //  Vertical Distance Between CG and Mean Average Chord
-        private CAD_Parameter _CG_VerticalDistanceToMeanAvgChord = CreateDoubleParameter("ZP");  // - ZP
+        private CAD_Parameter _CG_VerticalDistanceToMeanAvgChord = CAD_Parameter.CreateDoubleParameter("ZP");  // - ZP
         //
         //  Chord Locations Relative to Fuselage
         //
         //  Fuselage Depth at MAC Quarter Chord Point
-        private CAD_Parameter _FuselageDepthAtMAC_QuarterChordPoint = CreateDoubleParameter("BDV");  // - BDV
+        private CAD_Parameter _FuselageDepthAtMAC_QuarterChordPoint = CAD_Parameter.CreateDoubleParameter("BDV");  // - BDV
         //  *****************************************************************************************
 
 
@@ -162,11 +162,6 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
     }
 }

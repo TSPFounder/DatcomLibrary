@@ -24,7 +24,7 @@ namespace DATCOM
         //  Flap Deflection Angles
         //
         //  Number of Flap Deflections
-        private CAD_Parameter _NumberFlapDeflections = CreateIntegerParameter("NDELTA");  // - NDELTA
+        private CAD_Parameter _NumberFlapDeflections = CAD_Parameter.CreateIntegerParameter("NDELTA");  // - NDELTA
         //
         //  Left Hand Flap Deflection Angle
         private List<CAD_Parameter> _LeftHandDeflectionAngles = CreateDoubleParameterList("DELTAL", MaxFlapEntries);  // - DELTAL
@@ -38,19 +38,19 @@ namespace DATCOM
         //  Flap Geometry
         //
         //  Tangent of Airfoil Trailing Edge Angle
-        private CAD_Parameter _TangentOfAirfoilTrailingEdgeAngle = CreateDoubleParameter("PHETE");  // - PHETE
+        private CAD_Parameter _TangentOfAirfoilTrailingEdgeAngle = CAD_Parameter.CreateDoubleParameter("PHETE");  // - PHETE
         //
         //  Inboard End Longitudinal Flap Aileron Chord
-        private CAD_Parameter _InboardEndLongitudinalFlapChord = CreateDoubleParameter("CHRDFI");  // - CHRDFI
+        private CAD_Parameter _InboardEndLongitudinalFlapChord = CAD_Parameter.CreateDoubleParameter("CHRDFI");  // - CHRDFI
         //
         //  Outboard End Longitudinal Flap Aileron Chord
-        private CAD_Parameter _OutboardEndLongitudinalFlapChord = CreateDoubleParameter("CHRDFO");  // - CHRDFO
+        private CAD_Parameter _OutboardEndLongitudinalFlapChord = CAD_Parameter.CreateDoubleParameter("CHRDFO");  // - CHRDFO
         //
         //  Inboard End Vertical Flap Span Location
-        private CAD_Parameter _InboardEndVerticalFlapSpanLocation = CreateDoubleParameter("SPANFI");  // - SPANFI
+        private CAD_Parameter _InboardEndVerticalFlapSpanLocation = CAD_Parameter.CreateDoubleParameter("SPANFI");  // - SPANFI
         //
         //  Outboard End Vertical Flap Span Location
-        private CAD_Parameter _OutboardEndVerticalFlapSpanLocation = CreateDoubleParameter("SPANFO");  // - SPANFO
+        private CAD_Parameter _OutboardEndVerticalFlapSpanLocation = CAD_Parameter.CreateDoubleParameter("SPANFO");  // - SPANFO
         //
         //  Spoiler Geometry
         //
@@ -58,7 +58,7 @@ namespace DATCOM
         private List<CAD_Parameter> _SpoilerLipDistanceToWingLE = CreateDoubleParameterList("XSOC", MaxFlapEntries);  // - XSOC
         //
         //  Spoiler Hinge Line Distance to Wing Leading Edge  as Percent of Chord
-        private CAD_Parameter _SpoilerHingeLineDistanceToWingLE = CreateDoubleParameter("XSPRME");  // - XSPRME
+        private CAD_Parameter _SpoilerHingeLineDistanceToWingLE = CAD_Parameter.CreateDoubleParameter("XSPRME");  // - XSPRME
         //
         //  Projected Spoiler Height to Mean Line as Percent of Chord
         private List<CAD_Parameter> _ProjectedSpoilerHeightToMeanLineAsPercentChord = CreateDoubleParameterList("HSOC", MaxFlapEntries);  // - HSOC
@@ -233,28 +233,16 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateEnumParameter(string name, int initialValue) => CreateIntegerParameter(name, initialValue);
+        private static CAD_Parameter CreateEnumParameter(string name, int initialValue) => CAD_Parameter.CreateIntegerParameter(name, initialValue);
 
-        private static CAD_Parameter CreateIntegerParameter(string name, int initialValue = 0)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Integer);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
 
         private static List<CAD_Parameter> CreateDoubleParameterList(string prefix, int count)
         {
             var list = new List<CAD_Parameter>(count);
             for (var i = 1; i <= count; i++)
             {
-                list.Add(CreateDoubleParameter($"{prefix}{i}"));
+                list.Add(CAD_Parameter.CreateDoubleParameter($"{prefix}{i}"));
             }
 
             return list;

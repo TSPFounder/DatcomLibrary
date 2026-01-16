@@ -20,18 +20,18 @@ namespace DATCOM
         //  Flap Enumerations
         //
         //  Flap Type
-        private CAD_Parameter _FlapType = CreateIntegerParameter("FTYPE", (int)FlapTypeEnum.PlainFlap);
+        private CAD_Parameter _FlapType = CAD_Parameter.CreateIntegerParameter("FTYPE", (int)FlapTypeEnum.PlainFlap);
         //
         //  Nose Type
-        private CAD_Parameter _NoseType = CreateIntegerParameter("NTYPE", (int)NoseTypeEnum.Round);
+        private CAD_Parameter _NoseType = CAD_Parameter.CreateIntegerParameter("NTYPE", (int)NoseTypeEnum.Round);
         //
         //  Jet Flap Type
-        private CAD_Parameter _JetFlapType = CreateIntegerParameter("JETFLP", (int)JetFlapTypeEnum.Pure);
+        private CAD_Parameter _JetFlapType = CAD_Parameter.CreateIntegerParameter("JETFLP", (int)JetFlapTypeEnum.Pure);
         //
         //  Flap Deflection Angles
         //
         //  Number of Flap Deflections
-        private CAD_Parameter _NumberFlapDeflections = CreateIntegerParameter("NDELTA");
+        private CAD_Parameter _NumberFlapDeflections = CAD_Parameter.CreateIntegerParameter("NDELTA");
         //
         //  Flap Deflection Angle
         private List<CAD_Parameter> _DeflectionAngles = new();
@@ -39,22 +39,22 @@ namespace DATCOM
         //  Flap Geometry
         //
         //  Tangent of Airfoil Trailing Edge Angle
-        private CAD_Parameter _TangentOfAirfoilTrailingEdgeAngle = CreateDoubleParameter("PHETE");
+        private CAD_Parameter _TangentOfAirfoilTrailingEdgeAngle = CAD_Parameter.CreateDoubleParameter("PHETE");
         //
         //  Tangent of Airfoil Trailing Edge Angle Based on Ordinates at 95% & 99% Chord
-        private CAD_Parameter _TangentOfAirfoilTrailingEdgeAngle_95_99_Chord = CreateDoubleParameter("PHETEP");
+        private CAD_Parameter _TangentOfAirfoilTrailingEdgeAngle_95_99_Chord = CAD_Parameter.CreateDoubleParameter("PHETEP");
         //
         //  Inboard End Longitudinal Flap Chord
-        private CAD_Parameter _InboardEndLongitudinalFlapChord = CreateDoubleParameter("CHRDFI");
+        private CAD_Parameter _InboardEndLongitudinalFlapChord = CAD_Parameter.CreateDoubleParameter("CHRDFI");
         //
         //  Outboard End Longitudinal Flap Chord
-        private CAD_Parameter _OutboardEndLongitudinalFlapChord = CreateDoubleParameter("CHRDFO");
+        private CAD_Parameter _OutboardEndLongitudinalFlapChord = CAD_Parameter.CreateDoubleParameter("CHRDFO");
         //
         //  Inboard End Vertical Flap Span Location
-        private CAD_Parameter _InboardEndVerticalFlapSpanLocation = CreateDoubleParameter("SPANFI");
+        private CAD_Parameter _InboardEndVerticalFlapSpanLocation = CAD_Parameter.CreateDoubleParameter("SPANFI");
         //
         //  Outboard End Vertical Flap Span Location
-        private CAD_Parameter _OutboardEndVerticalFlapSpanLocation = CreateDoubleParameter("SPANFO");
+        private CAD_Parameter _OutboardEndVerticalFlapSpanLocation = CAD_Parameter.CreateDoubleParameter("SPANFO");
         //
         //  Total Wing Chord at Inboard End 
         private List<CAD_Parameter> _TotalWingChordAtInboardEnd = new();
@@ -63,10 +63,10 @@ namespace DATCOM
         private List<CAD_Parameter> _TotalWingChordAtOutboardEnd = new();
         //
         //  Average Chord of the Balance
-        private CAD_Parameter _AverageChordOfBalance = CreateDoubleParameter("CB");
+        private CAD_Parameter _AverageChordOfBalance = CAD_Parameter.CreateDoubleParameter("CB");
         //
         //  Average Thickness At Hinge Line
-        private CAD_Parameter _AverageThicknessAtHingeLine = CreateDoubleParameter("TC");
+        private CAD_Parameter _AverageThicknessAtHingeLine = CAD_Parameter.CreateDoubleParameter("TC");
         //
         //  Performance
         //
@@ -79,7 +79,7 @@ namespace DATCOM
         //  Jet Flap Definitions
         //
         //  Two-Dimensional Jet Efflux Coefficient
-        private CAD_Parameter _JetEffluxCoeff2D = CreateDoubleParameter("CMU");
+        private CAD_Parameter _JetEffluxCoeff2D = CAD_Parameter.CreateDoubleParameter("CMU");
         //
         //  Jet Deflection Angle
         private List<CAD_Parameter> _JetDeflectionAngle = new();
@@ -313,18 +313,6 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateIntegerParameter(string name, int initialValue = 0)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Integer);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
     }
 }

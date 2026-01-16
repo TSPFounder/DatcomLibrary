@@ -20,7 +20,7 @@ namespace DATCOM
         //  Engine
         //
         //  Number of Ground Heights
-        private CAD_Parameter _NumberGroundHeights = CreateIntegerParameter("NGH");  // - NGH - Max of 10
+        private CAD_Parameter _NumberGroundHeights = CAD_Parameter.CreateIntegerParameter("NGH");  // - NGH - Max of 10
         //
         //  Ground Height Values
         private List<CAD_Parameter> _GroundHeight = new();  // - GRDHT
@@ -94,18 +94,6 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateIntegerParameter(string name, int initialValue = 0)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Integer);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
     }
 }

@@ -18,32 +18,32 @@ namespace DATCOM
         //  Namelist Data
         //
         //  Planform Type
-        private CAD_Parameter _PlanformType = CreateIntegerParameter("TYPE", (int)PlanformTypeEnum.StraightTapered);
+        private CAD_Parameter _PlanformType = CAD_Parameter.CreateIntegerParameter("TYPE", (int)PlanformTypeEnum.StraightTapered);
         //
         //  Chords
         //
         //  Tip Chord Length - (CHRDTP)
-        private CAD_Parameter _TipChordLength = CreateDoubleParameter("CHRDTP");
+        private CAD_Parameter _TipChordLength = CAD_Parameter.CreateDoubleParameter("CHRDTP");
         //
         //  Chord Length at Breakpoint - (CHRDBP)
-        private CAD_Parameter _BreakpointChordLength = CreateDoubleParameter("CHRDBP");
+        private CAD_Parameter _BreakpointChordLength = CAD_Parameter.CreateDoubleParameter("CHRDBP");
         //
         //  Root Chord Length - (CHRDR)
-        private CAD_Parameter _RootChordLength = CreateDoubleParameter("CHRDR");
+        private CAD_Parameter _RootChordLength = CAD_Parameter.CreateDoubleParameter("CHRDR");
         //
         //  Semi-Spans
         //
         //  Outboard Panel Semi-Span Length - (SSNOP)
-        private CAD_Parameter _OutboardPanelSemiSpanLength = CreateDoubleParameter("SSNOP");
+        private CAD_Parameter _OutboardPanelSemiSpanLength = CAD_Parameter.CreateDoubleParameter("SSNOP");
         //
         //  Exposed Panel Semi-Span Length - (SSNEP)
-        private CAD_Parameter _ExposedPanelSemiSpanLength = CreateDoubleParameter("SSNEP");
+        private CAD_Parameter _ExposedPanelSemiSpanLength = CAD_Parameter.CreateDoubleParameter("SSNEP");
         //
         //  Theoretical Panel Semi-Span Length at Root Chord - (SSPN)
-        private CAD_Parameter _TheoreticalPanelSemiSpanLength = CreateDoubleParameter("SSPN");
+        private CAD_Parameter _TheoreticalPanelSemiSpanLength = CAD_Parameter.CreateDoubleParameter("SSPN");
         //
         //  Outboard Panel Semi-Span Length with Dihedral - (SSNDD)
-        private CAD_Parameter _OutboardPanelSemiSpanLength_Dihedral = CreateDoubleParameter("SSNDD");
+        private CAD_Parameter _OutboardPanelSemiSpanLength_Dihedral = CAD_Parameter.CreateDoubleParameter("SSNDD");
         //  *****************************************************************************************
 
 
@@ -159,18 +159,6 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateIntegerParameter(string name, int initialValue = 0)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Integer);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
     }
 }

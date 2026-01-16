@@ -16,35 +16,35 @@ namespace DATCOM
         //  Flap Enumerations
         //
         //  Flap Type
-        private CAD_Parameter _TabType = CreateIntegerParameter("TTYPE", (int)TabTypeEnum.Tab);  // - TTYPE
+        private CAD_Parameter _TabType = CAD_Parameter.CreateIntegerParameter("TTYPE", (int)TabTypeEnum.Tab);  // - TTYPE
         //
         //  Control Tab Geometry
         //
         //  Control Tab Inboard Chord Length
-        private CAD_Parameter _ControlTabInboardChordLength = CreateDoubleParameter("CFITC");  // - CFITC
+        private CAD_Parameter _ControlTabInboardChordLength = CAD_Parameter.CreateDoubleParameter("CFITC");  // - CFITC
         //
         //  Control Tab Outboard Chord Length
-        private CAD_Parameter _ControlTabOutboardChordLength = CreateDoubleParameter("CFOTC");  // - CFOTC
+        private CAD_Parameter _ControlTabOutboardChordLength = CAD_Parameter.CreateDoubleParameter("CFOTC");  // - CFOTC
         //
         //  Control Tab Inboard Span Location
-        private CAD_Parameter _ControlTabInboardSpanLocation = CreateDoubleParameter("BITC");  // - BITC
+        private CAD_Parameter _ControlTabInboardSpanLocation = CAD_Parameter.CreateDoubleParameter("BITC");  // - BITC
         //
         //  Control Tab Outboard Span Location
-        private CAD_Parameter _ControlTabOutboardSpanLocation = CreateDoubleParameter("BOTC");  // - BOTC
+        private CAD_Parameter _ControlTabOutboardSpanLocation = CAD_Parameter.CreateDoubleParameter("BOTC");  // - BOTC
         //
         //  Trim Tab Geometry
         //
         //  Trim Tab Inboard Chord Length
-        private CAD_Parameter _TrimTabInboardChordLength = CreateDoubleParameter("CFITT");  // - CFITT
+        private CAD_Parameter _TrimTabInboardChordLength = CAD_Parameter.CreateDoubleParameter("CFITT");  // - CFITT
         //
         //  Trim Tab Outboard Chord Length
-        private CAD_Parameter _TrimTabOutboardChordLength = CreateDoubleParameter("CFOTT");  // - CFOTT
+        private CAD_Parameter _TrimTabOutboardChordLength = CAD_Parameter.CreateDoubleParameter("CFOTT");  // - CFOTT
         //
         //  Trim Tab Inboard Span Location
-        private CAD_Parameter _TrimTabInboardSpanLocation = CreateDoubleParameter("BITT");  // - BITT
+        private CAD_Parameter _TrimTabInboardSpanLocation = CAD_Parameter.CreateDoubleParameter("BITT");  // - BITT
         //
         //  Trim Tab Outboard Span Location
-        private CAD_Parameter _TrimTabOutboardSpanLocation = CreateDoubleParameter("BOTT");  // - BOTT
+        private CAD_Parameter _TrimTabOutboardSpanLocation = CAD_Parameter.CreateDoubleParameter("BOTT");  // - BOTT
         //  *****************************************************************************************
 
 
@@ -175,18 +175,6 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateIntegerParameter(string name, int initialValue = 0)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Integer);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
     }
 }

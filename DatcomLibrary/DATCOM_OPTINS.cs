@@ -16,16 +16,16 @@ namespace DATCOM
         //  Namelist Data
         //
         //  Surface Roughness Factor
-        private Double _SurfaceRoughnessFactor;
+        public double SurfaceRoughnessFactor { get; set; }
         //
         //  Reference Area
-        private Double _ReferenceArea;
+        public double ReferenceArea { get; set; }
         //
         //  Longitudinal Wing Mean Aerodynamic Chord Length
-        private Double _LongitudinalWingMeanChordLength;
+        public double LongitudinalWingMeanChordLength { get; set; }
         //
         //  Lateral Wing Span Reference Length
-        private Double _LateralWingSpanReferenceLength;
+        public double LateralWingSpanReferenceLength { get; set; }
 
         //  *****************************************************************************************
 
@@ -53,55 +53,6 @@ namespace DATCOM
         public DATCOM_OPTINS()
         {
             this.NamelistGroupNumber = 1;
-        }
-        //  *****************************************************************************************
-
-
-        //  *****************************************************************************************
-        //  PROPERTIES
-        //
-        //  ************************************************************
-        //
-        //  Namelist Data
-        //
-        //  Surface Roughness Factor
-        public Double SurfaceRoughnessFactor
-        {
-            set { }
-            get
-            {
-                return _SurfaceRoughnessFactor;
-            }
-        }
-        //
-        //  Reference Area
-        public Double ReferenceArea
-        {
-            set { }
-            get
-            {
-                return _ReferenceArea;
-            }
-        }
-        //
-        //  Longitudinal Wing Mean Aerodynamic Chord Length
-        public Double LongitudinalWingMeanChordLength
-        {
-            set { }
-            get
-            {
-                return _LongitudinalWingMeanChordLength;
-            }
-        }
-        //
-        //  Lateral Wing Span Reference Length
-        public Double LateralWingSpanReferenceLength
-        {
-            set { }
-            get
-            {
-                return _LateralWingSpanReferenceLength;
-            }
         }
         //  *****************************************************************************************
 

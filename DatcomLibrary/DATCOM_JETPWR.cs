@@ -20,50 +20,50 @@ namespace DATCOM
         //  Engine
         //
         //  Number of Engines
-        private CAD_Parameter _NumberEngines = CreateIntegerParameter("NENGSJ");  // - NENGSJ - Max of 2
+        private CAD_Parameter _NumberEngines = CAD_Parameter.CreateIntegerParameter("NENGSJ");  // - NENGSJ - Max of 2
         //
         //  Angle of Incidence of the Engine Thrust Axis
-        private CAD_Parameter _EngineThrustAxisAngle = CreateDoubleParameter("AIETLJ");  // - AIETLJ
+        private CAD_Parameter _EngineThrustAxisAngle = CAD_Parameter.CreateDoubleParameter("AIETLJ");  // - AIETLJ
         //
         //  Lateral Location of Engine
-        private CAD_Parameter _LateralEngineLocation = CreateDoubleParameter("JELLOC");  // - JELLOC
+        private CAD_Parameter _LateralEngineLocation = CAD_Parameter.CreateDoubleParameter("JELLOC");  // - JELLOC
         //
         //  Axial Location of Engine Inlet
-        private CAD_Parameter _AxialEngineInletLocation = CreateDoubleParameter("JIALOC");  // - JIALOC
+        private CAD_Parameter _AxialEngineInletLocation = CAD_Parameter.CreateDoubleParameter("JIALOC");  // - JIALOC
         //
         //  Axial Location of Engine Exit
-        private CAD_Parameter _AxialEngineExitLocation = CreateDoubleParameter("JEALOC");  // - JEALOC
+        private CAD_Parameter _AxialEngineExitLocation = CAD_Parameter.CreateDoubleParameter("JEALOC");  // - JEALOC
         //
         //  Vertical Location of Engine Exit
-        private CAD_Parameter _VerticalEngineExitLocation = CreateDoubleParameter("JEVLOC");  // - JEVLOC
+        private CAD_Parameter _VerticalEngineExitLocation = CAD_Parameter.CreateDoubleParameter("JEVLOC");  // - JEVLOC
         //
         //  Jet Engine Inlet Area
-        private CAD_Parameter _EngineInletArea = CreateDoubleParameter("JINLTA");  // - JINLTA
+        private CAD_Parameter _EngineInletArea = CAD_Parameter.CreateDoubleParameter("JINLTA");  // - JINLTA
         //
         //  Jet Engine Exit Radius
-        private CAD_Parameter _EngineExitRadius = CreateDoubleParameter("JERAD");  // - JERAD
+        private CAD_Parameter _EngineExitRadius = CAD_Parameter.CreateDoubleParameter("JERAD");  // - JERAD
         //
         //  Jet Engine Exit Angle
-        private CAD_Parameter _EngineExitAngle = CreateDoubleParameter("JEANGL");  // - JEANGL
+        private CAD_Parameter _EngineExitAngle = CAD_Parameter.CreateDoubleParameter("JEANGL");  // - JEANGL
         //
         //  Thrust
         //
         //  Thrust Coefficient
-        private CAD_Parameter _ThrustCoefficient = CreateDoubleParameter("THSTCJ");  // - THSTCJ
+        private CAD_Parameter _ThrustCoefficient = CAD_Parameter.CreateDoubleParameter("THSTCJ");  // - THSTCJ
         //
         //  Jet Engine Exit Velocity
-        private CAD_Parameter _EngineExitVelocity = CreateDoubleParameter("JEVELO");  // - JEVELO
+        private CAD_Parameter _EngineExitVelocity = CAD_Parameter.CreateDoubleParameter("JEVELO");  // - JEVELO
         //
         //  Jet Engine Exit Static Temperature
-        private CAD_Parameter _EngineExitStaticTemperature = CreateDoubleParameter("JESTMP");  // - JESTMP
+        private CAD_Parameter _EngineExitStaticTemperature = CAD_Parameter.CreateDoubleParameter("JESTMP");  // - JESTMP
         //
         //  Jet Engine Exit Total Pressure
-        private CAD_Parameter _EngineExitTotalPressure = CreateDoubleParameter("JETOTP");  // - JETOTP
+        private CAD_Parameter _EngineExitTotalPressure = CAD_Parameter.CreateDoubleParameter("JETOTP");  // - JETOTP
         //
         //  Freestream Conditions
         //
         //  Ambient Temperature
-        private CAD_Parameter _AmbientTemperature = CreateDoubleParameter("AMBTMP");  // - AMBTMP
+        private CAD_Parameter _AmbientTemperature = CAD_Parameter.CreateDoubleParameter("AMBTMP");  // - AMBTMP
         //  *****************************************************************************************
 
 
@@ -222,18 +222,6 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateIntegerParameter(string name, int initialValue = 0)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Integer);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
-
-        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
-        {
-            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
-            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
-            return parameter;
-        }
+        
     }
 }
