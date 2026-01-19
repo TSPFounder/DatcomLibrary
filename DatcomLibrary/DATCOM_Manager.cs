@@ -74,6 +74,8 @@ public sealed class DATCOM_Manager
         newInputFile.FileName = fileName;
         newInputFile.InputPath = filePath;
 
+        SetCurrentFile(newInputFile);
+
         string fullPath = Path.Combine(filePath, fileName);
 
         if (!FileCollection.Contains(newInputFile))
@@ -86,17 +88,27 @@ public sealed class DATCOM_Manager
 
     public bool RunDATCOM(double startAltitude, double startMachNumber)
     {
+        /*
         if (CurrentFile is null || TheExcelApp is null)
         {
             return false;
         }
+        */
 
-        CurrentFile.SetFlightConditions(startAltitude, startMachNumber);
+
+       
 
         try
         {
             foreach (var currentFile in FileCollection)
             {
+                if (currentFile is null || TheExcelApp is null)
+                {
+                    return false;
+                }
+
+                currentFile.SetFlightConditions(startAltitude, startMachNumber);
+
                 var sourceFile = Path.Combine(currentFile.InputPath, currentFile.FileName);
                 if (File.Exists(sourceFile))
                 {
@@ -104,7 +116,7 @@ public sealed class DATCOM_Manager
                     File.Move(sourceFile, backupPath, overwrite: true);
                 }
 
-                CurrentFile.ExecuteDATCOM(sourceFile);
+                currentFile.ExecuteDATCOM(sourceFile);
             }
 
             var workbookPath = Path.Combine(CurrentFile.InputPath, "for042.csv");
