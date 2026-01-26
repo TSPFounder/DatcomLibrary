@@ -22,20 +22,24 @@ namespace DATCOM
         private List<CAD_Parameter> _MachNumbers = new();  //  - MACH
         //
         //  Freestream Conditions
-        private CAD_Parameter _FreestreamVelocity = CAD_Parameter.CreateDoubleParameter("VEL");  //  - VEL
-        private CAD_Parameter _FreestreamStaticPressure = CAD_Parameter.CreateDoubleParameter("PS");  //  - PS
-        private CAD_Parameter _FreestreamStaticTemperature = CAD_Parameter.CreateDoubleParameter("TS");  //  - TS
+        private List<CAD_Parameter> _FreestreamVelocity = new();  //  - VINF
+        private List<CAD_Parameter> _FreestreamStaticPressure = new();  //  - PS
+        private List<CAD_Parameter> _FreestreamStaticTemperature = new();  //  - TS
+
         //
         //  Angle of Attack
         private CAD_Parameter _NumAnglesOfAttack = CAD_Parameter.CreateIntegerParameter("NALPHA");  //  - NALPHA
-        private List<CAD_Parameter> _AnglesOfAttack = new();  //  - ALPHA
+        private List<CAD_Parameter> _AnglesOfAttack = new();  //  - ALSCHD
         //
         //  Reynolds Number per Unit Length
-        private CAD_Parameter _ReynoldsNumberPerLength = CAD_Parameter.CreateDoubleParameter("RE");  //  - RE
+        private List<CAD_Parameter> _ReynoldsNumberPerLength = new();  //  - RNNUB
         //
         //  Altitudes
         private CAD_Parameter _NumAltitudes = CAD_Parameter.CreateIntegerParameter("NALT");  //  - NALT
         private List<CAD_Parameter> _Altitudes = new();  //  - ALT
+        //
+        //  Flow Condition Input Type
+        private FlowConditionInputEnum _FlowConditionInputType;        
         //
         //  Hypersonic
         private CAD_Parameter _Hypersonic = CAD_Parameter.CreateBooleanParameter("BHYPE", false);  //  - BHYPE
@@ -57,7 +61,7 @@ namespace DATCOM
         //  *****************************************************************************************
 
 
-        //  ****************************************************************************************
+        //  *****************************************************************************************
         //  INITIALIZATIONS
         //
         //  ************************************************************
@@ -69,7 +73,15 @@ namespace DATCOM
         //  ENUMERATIONS
         //
         //  ************************************************************
+        public enum FlowConditionInputEnum
+        {
+            MachReynolds,
+            MachAltitude,
+            VelocityAltitude,
+            PressureTemperatureVelocity,
+            PressureTemperatureMach
 
+        }
         //  *****************************************************************************************
 
 
@@ -110,21 +122,21 @@ namespace DATCOM
         //  Freestream Conditions 
         //
         //  Freestream Velocity
-        public CAD_Parameter FreestreamVelocity
+        public List<CAD_Parameter> FreestreamVelocity
         {
             get => _FreestreamVelocity;
             set => _FreestreamVelocity = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Freestream Static Pressure
-        public CAD_Parameter FreestreamStaticPressure
+        public List<CAD_Parameter> FreestreamStaticPressure
         {
             get => _FreestreamStaticPressure;
             set => _FreestreamStaticPressure = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Freestream Static Temperature
-        public CAD_Parameter FreestreamStaticTemperature
+        public List<CAD_Parameter> FreestreamStaticTemperature
         {
             get => _FreestreamStaticTemperature;
             set => _FreestreamStaticTemperature = value ?? throw new ArgumentNullException(nameof(value));
@@ -147,7 +159,7 @@ namespace DATCOM
         }
         //
         //  Reynolds Number per Unit Length
-        public CAD_Parameter ReynoldsNumberPerLength
+        public List<CAD_Parameter> ReynoldsNumberPerLength
         {
             get => _ReynoldsNumberPerLength;
             set => _ReynoldsNumberPerLength = value ?? throw new ArgumentNullException(nameof(value));
@@ -167,7 +179,7 @@ namespace DATCOM
         {
             get => _Altitudes;
             set => _Altitudes = value ?? throw new ArgumentNullException(nameof(value));
-        }
+        }        
         //
         //  Hypersonic Conditions
         public CAD_Parameter Hypersonic
@@ -227,6 +239,112 @@ namespace DATCOM
         //
         //  ************************************************************
 
+        //  *******  Add Mach Number
+        public void AddMachNumber(double machNumber)
+        {
+            if (_MachNumbers.Count >= 20)
+            {
+                throw new InvalidOperationException("Maximum of 20 Mach numbers can be specified.");
+            }
+
+            var nextIndex = _MachNumbers.Count + 1;
+            var parameter = CAD_Parameter.CreateDoubleParameter($"MACH{nextIndex}");
+            parameter.Value = new CAD_ParameterValue(machNumber, parameter);
+            _MachNumbers.Add(parameter);
+            _NumMachNumbers.Value = new CAD_ParameterValue(_MachNumbers.Count, _NumMachNumbers);
+        }
+
+        //  *******  Add Free Stream Velocity
+        public void AddFreestreamVelocity(double velocity)
+        {
+            if (_FreestreamVelocity.Count >= 20)
+            {
+                throw new InvalidOperationException("Maximum of 20 Free Stream Velocities can be specified.");
+            }
+
+            var nextIndex = _FreestreamVelocity.Count + 1;
+            var parameter = CAD_Parameter.CreateDoubleParameter($"VINF{nextIndex}");
+            parameter.Value = new CAD_ParameterValue(velocity, parameter);
+            _FreestreamVelocity.Add(parameter);
+        }
+
+        //  *******  Add Angle of Attack
+        public void AddAngleOfAttack(double alpha)
+        {
+            if (_AnglesOfAttack.Count >= 20)
+            {
+                throw new InvalidOperationException("Maximum of 20 angles of attack can be specified.");
+            }
+
+            var nextIndex = _AnglesOfAttack.Count + 1;
+            var parameter = CAD_Parameter.CreateDoubleParameter($"ALPHA{nextIndex}");
+            parameter.Value = new CAD_ParameterValue(alpha, parameter);
+            _AnglesOfAttack.Add(parameter);
+            _NumAnglesOfAttack.Value = new CAD_ParameterValue(_AnglesOfAttack.Count, _NumAnglesOfAttack);
+        }   
+
+        //  *******  Add Altitude
+        public void AddAltitude(double altitude)
+        {
+            if (_Altitudes.Count >= 20)
+            {
+                throw new InvalidOperationException("Maximum of 20 altitudes can be specified.");
+            }
+
+            var nextIndex = _Altitudes.Count + 1;
+            var parameter = CAD_Parameter.CreateDoubleParameter($"ALT{nextIndex}");
+            parameter.Value = new CAD_ParameterValue(altitude, parameter);
+            _Altitudes.Add(parameter);
+            _NumAltitudes.Value = new CAD_ParameterValue(_Altitudes.Count, _NumAltitudes);
+        }
+
+        //  *******  Add Freestream Static Pressure
+        public void AddFreestreamStaticPressure(double pressure)
+        {
+            if (_FreestreamStaticPressure.Count >= 20)
+            {
+                throw new InvalidOperationException("Maximum of 20 free-stream static pressures can be specified.");
+            }
+
+            var nextIndex = _FreestreamStaticPressure.Count + 1;
+            var parameter = CAD_Parameter.CreateDoubleParameter(nextIndex == 1 ? "PS" : $"PS{nextIndex}");
+            parameter.Value = new CAD_ParameterValue(pressure, parameter);
+            _FreestreamStaticPressure.Add(parameter);
+        }
+
+        //  *******  Add Freestream Static Temperature
+        public void AddFreestreamStaticTemperature(double temperature)
+        {
+            if (_FreestreamStaticTemperature.Count >= 20)
+            {
+                throw new InvalidOperationException("Maximum of 20 free-stream static temperatures can be specified.");
+            }
+
+            var nextIndex = _FreestreamStaticTemperature.Count + 1;
+            var parameter = CAD_Parameter.CreateDoubleParameter(nextIndex == 1 ? "TS" : $"TS{nextIndex}");
+            parameter.Value = new CAD_ParameterValue(temperature, parameter);
+            _FreestreamStaticTemperature.Add(parameter);
+        }
+
+        //  *******  Add Reynolds Number per Unit Length
+        public void AddReynoldsNumberPerLength(double reynoldsNumber)
+        {
+            if (_ReynoldsNumberPerLength.Count >= 20)
+            {
+                throw new InvalidOperationException("Maximum of 20 Reynolds numbers per unit length can be specified.");
+            }
+
+            var nextIndex = _ReynoldsNumberPerLength.Count + 1;
+            var parameter = CAD_Parameter.CreateDoubleParameter(nextIndex == 1 ? "RNNUB" : $"RNNUB{nextIndex}");
+            parameter.Value = new CAD_ParameterValue(reynoldsNumber, parameter);
+            _ReynoldsNumberPerLength.Add(parameter);
+        }
+
+        //  Set the type of Flow Condition Input
+        public void SetFlowConditionInputType(FlowConditionInputEnum inputType)
+        {
+            _FlowConditionInputType = inputType;
+        }
         //  *****************************************************************************************
 
 
@@ -237,7 +355,7 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        
-        
+
+
     }
 }

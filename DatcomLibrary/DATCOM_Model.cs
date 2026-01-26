@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DatcomLibrary;
 
 namespace DATCOM;
 
@@ -81,6 +82,14 @@ public sealed class DATCOM_Model
 
     public List<DATCOM_Namelist> Namelists { get; } = new();
 
+    public List<string> SpeedRegimes { get; set; }
+
+    public List<DatcomWing> Wings { get; } = new();
+
+    public List<DatcomHorizontalStabilizer> HorizontalStabilizers { get; } = new();
+
+    public List<DatcomVerticalStabilizer> VerticalStabilizers { get; } = new();
+
     public void AssignNamelists()
     {
         var namelist = CreateNamelistForConfiguration(BasicConfiguration);
@@ -107,6 +116,112 @@ public sealed class DATCOM_Model
         }
         ModelFile = file;
         file.DATCOM_Models.Add(this);
+    }
+
+    public void AddRequiredBasicConfigurationNamelists()
+    {
+        var factories = GetRequiredNamelistFactories(BasicConfiguration);
+        foreach (var factory in factories)
+        {
+            Namelists.Add(factory());
+        }
+    }
+
+    private static IReadOnlyList<Func<DATCOM_Namelist>> GetRequiredNamelistFactories(BasicConfigurationEnum configuration)
+    {
+        var core = new Func<DATCOM_Namelist>[]
+        {
+            () => new DATCOM_FLTCON(),
+            () => new DATCOM_OPTINS(),
+            () => new DATCOM_SYNTHS()
+        };
+
+        return configuration switch
+        {
+            BasicConfigurationEnum.BodyAlone => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_BODY()
+            },
+            BasicConfigurationEnum.WingAlone => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_WGPLNF(),
+                () => new DATCOM_WGSCHR()
+            },
+            BasicConfigurationEnum.VerticalTail_and_VerticalFinAlone => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_VTPLNF(),
+                () => new DATCOM_VFPLNF(),
+                () => new DATCOM_VTSCHR(),
+                () => new DATCOM_VFSCHR()
+            },
+            BasicConfigurationEnum.BodyWing => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_BODY(),
+                () => new DATCOM_WGPLNF(),
+                () => new DATCOM_WGSCHR()
+            },
+            BasicConfigurationEnum.BodyHorizontal => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_BODY(),
+                () => new DATCOM_HTPLNF(),
+                () => new DATCOM_HTSCHR()
+            },
+            BasicConfigurationEnum.BodyVerticalVentral => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_BODY(),
+                () => new DATCOM_VTPLNF(),
+                () => new DATCOM_VFPLNF(),
+                () => new DATCOM_VTSCHR(),
+                () => new DATCOM_VFSCHR()
+            },
+            BasicConfigurationEnum.BodyWingVerticalVentral => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_BODY(),
+                () => new DATCOM_WGPLNF(),
+                () => new DATCOM_VTPLNF(),
+                () => new DATCOM_VFPLNF(),
+                () => new DATCOM_WGSCHR(),
+                () => new DATCOM_VTSCHR(),
+                () => new DATCOM_VFSCHR()
+            },
+            BasicConfigurationEnum.BodyWingHorizontalVerticalVentral => new Func<DATCOM_Namelist>[]
+            {
+                () => new DATCOM_FLTCON(),
+                () => new DATCOM_OPTINS(),
+                () => new DATCOM_SYNTHS(),
+                () => new DATCOM_BODY(),
+                () => new DATCOM_WGPLNF(),
+                () => new DATCOM_HTPLNF(),
+                () => new DATCOM_VTPLNF(),
+                () => new DATCOM_VFPLNF(),
+                () => new DATCOM_WGSCHR(),
+                () => new DATCOM_HTSCHR(),
+                () => new DATCOM_VTSCHR(),
+                () => new DATCOM_VFSCHR()
+            },
+            _ => core
+        };
     }
 
     public enum BasicConfigurationEnum

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using CAD;
 using SE_Library;
 using SystemsEngineeringLibrary;
 
@@ -6,8 +9,12 @@ namespace DATCOM;
 
 public abstract class DATCOM_Namelist
 {
+    private readonly List<CAD_Parameter> _namelistParameters = new();
+    private bool _parametersRegistered;
+
     protected DATCOM_Namelist()
     {
+        List<CAD_Parameter> NamelistParameters = new List<CAD_Parameter>();
     }
 
     protected DATCOM_Namelist(
@@ -30,6 +37,19 @@ public abstract class DATCOM_Namelist
 
     public int NamelistGroupNumber { get; protected set; }
 
+    public List<CAD_Parameter> NamelistParameters
+    {
+        get
+        {
+            if (!_parametersRegistered)
+            {
+                RegisterParametersFromFields();
+            }
+
+            return _namelistParameters;
+        }
+    }
+
     public Group1_DATCOM_NamelistEnum Group1_NamelistEnum { get; protected set; } = Group1_DATCOM_NamelistEnum.None;
 
     public Group2_DATCOM_NamelistEnum Group2_NamelistEnum { get; protected set; } = Group2_DATCOM_NamelistEnum.None;
@@ -39,6 +59,61 @@ public abstract class DATCOM_Namelist
     public Group4_DATCOM_NamelistEnum Group4_NamelistEnum { get; protected set; } = Group4_DATCOM_NamelistEnum.None;
 
     public override string ToString() => $"{NamelistName} (Group {NamelistGroupNumber})";
+
+    protected void RegisterParametersFromFields()
+    {
+        if (_parametersRegistered)
+        {
+            return;
+        }
+
+        var type = GetType();
+        while (type is not null && type != typeof(DATCOM_Namelist))
+        {
+            foreach (var field in type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly))
+            {
+                var value = field.GetValue(this);
+                if (value is CAD_Parameter parameter)
+                {
+                    RegisterParameter(parameter);
+                }
+                else if (value is IEnumerable<CAD_Parameter> parameterList)
+                {
+                    RegisterParameterRange(parameterList);
+                }
+            }
+
+            type = type.BaseType;
+        }
+
+        _parametersRegistered = true;
+    }
+
+    private void RegisterParameter(CAD_Parameter? parameter)
+    {
+        if (parameter is null)
+        {
+            return;
+        }
+
+        if (!_namelistParameters.Contains(parameter))
+        {
+            _namelistParameters.Add(parameter);
+        }
+    }
+
+    private void RegisterParameterRange(IEnumerable<CAD_Parameter>? parameters)
+    {
+        if (parameters is null)
+        {
+            return;
+        }
+
+        foreach (var parameter in parameters)
+        {
+            RegisterParameter(parameter);
+        }
+    }
 
     public enum Group1_DATCOM_NamelistEnum
     {

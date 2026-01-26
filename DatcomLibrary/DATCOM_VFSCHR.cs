@@ -40,6 +40,7 @@ namespace DATCOM
         public DATCOM_VFSCHR()
         {
             this.NamelistGroupNumber = 2;
+            RegisterParametersFromFields();
         }
         //  *****************************************************************************************
 

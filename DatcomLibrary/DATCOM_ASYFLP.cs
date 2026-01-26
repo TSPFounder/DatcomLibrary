@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using CAD;
 using SE_Library;
 
@@ -19,7 +20,8 @@ namespace DATCOM
         //  Flap Enumerations
         //
         //  Flap Type
-        private CAD_Parameter _FlapType = CreateEnumParameter("STYPE", (int)FlapTypeEnum.FlapSpoilerOnWing);  // - STYPE
+        private CAD_Parameter _FlapType = CAD_Parameter.CreateEnumParameter("STYPE", (int)FlapTypeEnum.FlapSpoilerOnWing);  // - STYPE
+        
         //
         //  Flap Deflection Angles
         //
@@ -99,6 +101,7 @@ namespace DATCOM
         public DATCOM_ASYFLP()
         {
             this.NamelistGroupNumber = 3;
+            List<CAD_Parameter> NamelistParameters = new List<CAD_Parameter>();
         }
         //  *****************************************************************************************
 
@@ -233,7 +236,7 @@ namespace DATCOM
 
         //  *****************************************************************************************
 
-        private static CAD_Parameter CreateEnumParameter(string name, int initialValue) => CAD_Parameter.CreateIntegerParameter(name, initialValue);
+        
 
         
 

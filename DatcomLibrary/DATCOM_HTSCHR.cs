@@ -39,6 +39,7 @@ namespace DATCOM
         public DATCOM_HTSCHR()
         {
             this.NamelistGroupNumber = 2;
+            RegisterParametersFromFields();
         }
         //  *****************************************************************************************
 

@@ -33,6 +33,7 @@
         public DATCOM_Group1_Namelist()
         {
             this.NamelistGroupNumber = 1;
+            RegisterParametersFromFields();
         }
         //  *****************************************************************************************
 

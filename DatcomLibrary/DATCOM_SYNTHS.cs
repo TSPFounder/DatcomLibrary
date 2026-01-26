@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CAD;
+using SE_Library;
 
 
 namespace DATCOM
@@ -17,31 +19,31 @@ namespace DATCOM
         //  Namelist Data
         //
         //  Body
-        private (double Value, string LONGCG) _LongitudinalCG = (0d, "LONGCG");
-        private (double Value, string VERTCG) _VerticalCG = (0d, "VERTCG");
+        private CAD_Parameter _LongitudinalCG = CreateDoubleParameter("LONGCG");
+        private CAD_Parameter _VerticalCG = CreateDoubleParameter("VERTCG");
         //
         //  Wing
-        private (double Value, string WINGX) _LongitudinalWingApex = (0d, "WINGX");
-        private (double Value, string WINGZ) _VerticalWingApex = (0d, "WINGZ");
-        private (double Value, string WINGINC) _RootWingChordIncidenceAngle = (0d, "WINGINC");
+        private CAD_Parameter _LongitudinalWingApex = CreateDoubleParameter("WINGX");
+        private CAD_Parameter _VerticalWingApex = CreateDoubleParameter("WINGZ");
+        private CAD_Parameter _RootWingChordIncidenceAngle = CreateDoubleParameter("WINGINC");
         //
         //  Horizontal Tail
-        private (double Value, string HTAILX) _LongitudinalHorizontalTailApex = (0d, "HTAILX");
-        private (double Value, string HTAILZ) _VerticalHorizontalTailApex = (0d, "HTAILZ");
-        private (double Value, string HTAILINC) _RootHorizontalTailChordIncidenceAngle = (0d, "HTAILINC");
-        private (double Value, string HTHINGE) _LongitudinalHorizontalTailHingeAxis = (0d, "HTHINGE");
+        private CAD_Parameter _LongitudinalHorizontalTailApex = CreateDoubleParameter("HTAILX");
+        private CAD_Parameter _VerticalHorizontalTailApex = CreateDoubleParameter("HTAILZ");
+        private CAD_Parameter _RootHorizontalTailChordIncidenceAngle = CreateDoubleParameter("HTAILINC");
+        private CAD_Parameter _LongitudinalHorizontalTailHingeAxis = CreateDoubleParameter("HTHINGE");
         //
         //  Vertical Tail
-        private (double Value, string VTAILX) _LongitudinalVerticalTailApex = (0d, "VTAILX");
-        private (double Value, string VTAILZ) _VerticalVerticalTailApex = (0d, "VTAILZ");
+        private CAD_Parameter _LongitudinalVerticalTailApex = CreateDoubleParameter("VTAILX");
+        private CAD_Parameter _VerticalVerticalTailApex = CreateDoubleParameter("VTAILZ");
         //
         //  Ventral Fin
-        private (double Value, string VENTRALX) _LongitudinalVentralFinApex = (0d, "VENTRALX");
-        private (double Value, string VENTRALZ) _VerticalVentralFinApex = (0d, "VENTRALZ");
+        private CAD_Parameter _LongitudinalVentralFinApex = CreateDoubleParameter("VENTRALX");
+        private CAD_Parameter _VerticalVentralFinApex = CreateDoubleParameter("VENTRALZ");
         //
         //  Other 
-        private (double Value, string SCALE) _ScaleFactor = (1d, "SCALE");
-        private (bool Value, string VPANEL) _VerticalPanelAbove = (false, "VPANEL");
+        private CAD_Parameter _ScaleFactor = CreateDoubleParameter("SCALE", 1d);
+        private CAD_Parameter _VerticalPanelAbove = CreateBooleanParameter("VPANEL", false);
         //  *****************************************************************************************
 
 
@@ -68,6 +70,7 @@ namespace DATCOM
         public DATCOM_SYNTHS()
         {
             this.NamelistGroupNumber = 2;
+            RegisterParametersFromFields();
         }
         //  *****************************************************************************************
 
@@ -82,114 +85,113 @@ namespace DATCOM
         //  Body
         //
         //  Longitudinal Center of Gravity
-        public (double Value, string LONGCG) LongitudinalCG
+        public CAD_Parameter LongitudinalCG
         {
             get => _LongitudinalCG;
-            set => _LongitudinalCG = value;
+            set => _LongitudinalCG = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Vertical Center of Gravity
-        public (double Value, string VERTCG) VerticalCG
+        public CAD_Parameter VerticalCG
         {
             get => _VerticalCG;
-            set => _VerticalCG = value;
+            set => _VerticalCG = value ?? throw new ArgumentNullException(nameof(value));
         }
         //  Wing
         //
         //  Longitudinal Wing Apex Location
-        public (double Value, string WINGX) LongitudinalWingApex
+        public CAD_Parameter LongitudinalWingApex
         {
             get => _LongitudinalWingApex;
-            set => _LongitudinalWingApex = value;
+            set => _LongitudinalWingApex = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Vertical Wing Apex Location
-        public (double Value, string WINGZ) VerticalWingApex
+        public CAD_Parameter VerticalWingApex
         {
             get => _VerticalWingApex;
-            set => _VerticalWingApex = value;
+            set => _VerticalWingApex = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Root Wing Chord Incidence Angle
-        public (double Value, string WINGINC) RootWingChordIncidenceAngle
+        public CAD_Parameter RootWingChordIncidenceAngle
         {
             get => _RootWingChordIncidenceAngle;
-            set => _RootWingChordIncidenceAngle = value;
+            set => _RootWingChordIncidenceAngle = value ?? throw new ArgumentNullException(nameof(value));
         }
         //  Horizontal Tail
         //
         //  Longitudinal Horizontal Tail Apex Location
-        public (double Value, string HTAILX) LongitudinalHorizontalTailApex
+        public CAD_Parameter LongitudinalHorizontalTailApex
         {
             get => _LongitudinalHorizontalTailApex;
-            set => _LongitudinalHorizontalTailApex = value;
+            set => _LongitudinalHorizontalTailApex = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Vertical Horizontal Tail Apex Location
-        public (double Value, string HTAILZ) VerticalHorizontalTailApex
+        public CAD_Parameter VerticalHorizontalTailApex
         {
             get => _VerticalHorizontalTailApex;
-            set => _VerticalHorizontalTailApex = value;
+            set => _VerticalHorizontalTailApex = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Root Horizontal Tail Chord Incidence Angle
-        public (double Value, string HTAILINC) RootHorizontalTailChordIncidenceAngle
+        public CAD_Parameter RootHorizontalTailChordIncidenceAngle
         {
             get => _RootHorizontalTailChordIncidenceAngle;
-            set => _RootHorizontalTailChordIncidenceAngle = value;
+            set => _RootHorizontalTailChordIncidenceAngle = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Longitudinal Horizontal Tail Hinge Axis Location
-        public (double Value, string HTHINGE) LongitudinalHorizontalTailHingeAxis
+        public CAD_Parameter LongitudinalHorizontalTailHingeAxis
         {
             get => _LongitudinalHorizontalTailHingeAxis;
-            set => _LongitudinalHorizontalTailHingeAxis = value;
+            set => _LongitudinalHorizontalTailHingeAxis = value ?? throw new ArgumentNullException(nameof(value));
         }
         //  Vertical Tail
         //
         //  Longitudinal Vertical Tail Apex Location
-        public (double Value, string VTAILX) LongitudinalVerticalTailApex
+        public CAD_Parameter LongitudinalVerticalTailApex
         {
             get => _LongitudinalVerticalTailApex;
-            set => _LongitudinalVerticalTailApex = value;
+            set => _LongitudinalVerticalTailApex = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Vertical Vertical Tail Apex Location
-        public (double Value, string VTAILZ) VerticalVerticalTailApex
+        public CAD_Parameter VerticalVerticalTailApex
         {
             get => _VerticalVerticalTailApex;
-            set => _VerticalVerticalTailApex = value;
+            set => _VerticalVerticalTailApex = value ?? throw new ArgumentNullException(nameof(value));
         }
         //  Ventral Fin
         //
         //  Longitudinal Ventral Fin Apex Location
-        public (double Value, string VENTRALX) LongitudinalVentralFinApex
+        public CAD_Parameter LongitudinalVentralFinApex
         {
             get => _LongitudinalVentralFinApex;
-            set => _LongitudinalVentralFinApex = value;
+            set => _LongitudinalVentralFinApex = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Vertical Ventral Fin Apex Location
-        public (double Value, string VENTRALZ) VerticalVentralFinApex
+        public CAD_Parameter VerticalVentralFinApex
         {
             get => _VerticalVentralFinApex;
-            set => _VerticalVentralFinApex = value;
+            set => _VerticalVentralFinApex = value ?? throw new ArgumentNullException(nameof(value));
         }
-        //
         //  Other 
         //
         //  Scale Factor
-        public (double Value, string SCALE) ScaleFactor
+        public CAD_Parameter ScaleFactor
         {
             get => _ScaleFactor;
-            set => _ScaleFactor = value;
+            set => _ScaleFactor = value ?? throw new ArgumentNullException(nameof(value));
         }
         //
         //  Vertical Panel is Above the Reference Plane
-        public (bool Value, string VPANEL) VerticalPanelAbove
+        public CAD_Parameter VerticalPanelAbove
         {
             get => _VerticalPanelAbove;
-            set => _VerticalPanelAbove = value;
+            set => _VerticalPanelAbove = value ?? throw new ArgumentNullException(nameof(value));
         }
         //  *****************************************************************************************
 
@@ -208,5 +210,19 @@ namespace DATCOM
         //  ************************************************************
 
         //  *****************************************************************************************
+
+        private static CAD_Parameter CreateDoubleParameter(string name, double initialValue = 0d)
+        {
+            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Double);
+            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
+            return parameter;
+        }
+
+        private static CAD_Parameter CreateBooleanParameter(string name, bool initialValue)
+        {
+            var parameter = new CAD_Parameter(name, CAD_Parameter.ParameterType.Other);
+            parameter.Value = new CAD_ParameterValue(initialValue, parameter);
+            return parameter;
+        }
     }
 }

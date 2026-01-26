@@ -47,6 +47,7 @@ namespace DATCOM
         public DATCOM_WGSCHR()
         {
             this.NamelistGroupNumber = 2;
+            RegisterParametersFromFields();
         }
         //  *****************************************************************************************
 

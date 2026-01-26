@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DatcomLibrary
 {
-    internal class DatcomFlap
+    public class DatcomFlap
     {
         public DatcomFlap() { 
         

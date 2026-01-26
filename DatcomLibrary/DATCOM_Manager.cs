@@ -112,7 +112,7 @@ public sealed class DATCOM_Manager
                 var sourceFile = Path.Combine(currentFile.InputPath, currentFile.FileName);
                 if (File.Exists(sourceFile))
                 {
-                    var backupPath = Path.Combine(CurrentFile.InputPath, currentFile.FileName, ".old");
+                    var backupPath = Path.Combine(currentFile.InputPath, currentFile.FileName, ".old");
                     File.Move(sourceFile, backupPath, overwrite: true);
                 }
 
